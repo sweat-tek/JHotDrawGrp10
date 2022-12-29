@@ -6,3 +6,6 @@ target
 *.class
 nb-configuration.xml
 *.*~
+.idea/
+*.iml
+FeatureTraces/

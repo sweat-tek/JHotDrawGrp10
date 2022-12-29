@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.AbstractAttributedCompositeFigure;
 import java.awt.*;
@@ -58,11 +59,13 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "line tool")
     public SVGPathFigure() {
         add(new SVGBezierFigure());
         SVGAttributeKeys.setDefaults(this);
     }
 
+    @FeatureEntryPoint(value = "line tool")
     public SVGPathFigure(boolean isEmpty) {
         if (!isEmpty) {
             add(new SVGBezierFigure());
@@ -71,6 +74,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         setConnectable(false);
     }
 
+    @FeatureEntryPoint(value = "line tool")
     @Override
     public void draw(Graphics2D g) {
         double opacity = get(OPACITY);
@@ -475,6 +479,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     /**
      * Handles a mouse click.
      */
+    @FeatureEntryPoint(value = "line tool")
     @Override
     public boolean handleMouseClick(Point2D.Double p, MouseEvent evt, DrawingView view) {
         if (evt.getClickCount() == 2 && view.getHandleDetailLevel() % 2 == 0) {
