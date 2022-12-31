@@ -315,12 +315,9 @@ public class DelegationSelectionTool extends SelectionTool {
                     setTracker(figureTool);
                     figureTool.mousePressed(evt);
                 } else {
-                    if (outerFigure.handleMouseClick(p, evt, getView())) {
-                        v.clearSelection();
-                        v.addToSelection(outerFigure);
-                    } else {
-                        v.clearSelection();
-                        v.addToSelection(outerFigure);
+                    v.clearSelection();
+                    v.addToSelection(outerFigure);
+                    if (!outerFigure.handleMouseClick(p, evt, getView())) {
                         v.setHandleDetailLevel(v.getHandleDetailLevel() + 1);
                     }
                 }
