@@ -20,3 +20,5 @@ jobs:
                                   cache: maven
                         - name: Build with Maven
                           run: mvn --batch-mode --update-snapshots package verify
+                          env:
+                                  GITHUB_TOKEN: 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
