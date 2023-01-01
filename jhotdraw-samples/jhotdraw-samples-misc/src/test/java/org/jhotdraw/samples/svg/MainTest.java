@@ -36,7 +36,7 @@ public class MainTest {
         String[] args = {};
         Main.main(args);
 
-        while (System.getenv("github.token") == null){
+        while (false){
 
         }
     }
