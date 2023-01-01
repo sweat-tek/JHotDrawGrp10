@@ -196,21 +196,8 @@ public class SVGDrawingPanel extends JPanel implements Disposable {
      */
     public Drawing createDrawing() {
         Drawing drawing = new QuadTreeDrawing();
-        LinkedList<InputFormat> inputFormats = new LinkedList<InputFormat>();
-        inputFormats.add(new SVGZInputFormat());
-        inputFormats.add(new ImageInputFormat(new SVGImageFigure(), "PNG", "Portable Network Graphics (PNG)", "png", "image/png"));
-        inputFormats.add(new ImageInputFormat(new SVGImageFigure(), "JPG", "Joint Photographics Experts Group (JPEG)", "jpg", "image/jpg"));
-        inputFormats.add(new ImageInputFormat(new SVGImageFigure(), "GIF", "Graphics Interchange Format (GIF)", "gif", "image/gif"));
-        inputFormats.add(new TextInputFormat(new SVGTextFigure()));
-        drawing.setInputFormats(inputFormats);
-        LinkedList<OutputFormat> outputFormats = new LinkedList<OutputFormat>();
-        outputFormats.add(new SVGOutputFormat());
-        outputFormats.add(new SVGZOutputFormat());
-        outputFormats.add(new ImageOutputFormat());
-        outputFormats.add(new ImageOutputFormat("JPG", "Joint Photographics Experts Group (JPEG)", "jpg", BufferedImage.TYPE_INT_RGB));
-        outputFormats.add(new ImageOutputFormat("BMP", "Windows Bitmap (BMP)", "bmp", BufferedImage.TYPE_BYTE_INDEXED));
-        outputFormats.add(new ImageMapOutputFormat());
-        drawing.setOutputFormats(outputFormats);
+        drawing.setInputFormats(new ImageInputLoader().loadInput());
+        drawing.setOutputFormats(new ImageOutputLoader().loadOutput());
         return drawing;
     }
 

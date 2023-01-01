@@ -80,6 +80,8 @@ public class OpenFileAction extends AbstractApplicationAction {
 
     private static final long serialVersionUID = 1L;
     public static final String ID = "file.open";
+    public static View view = null;
+    public static View emptyView = null;
 
     /**
      * Creates a new instance.
@@ -103,49 +105,62 @@ public class OpenFileAction extends AbstractApplicationAction {
         if (app.isEnabled()) {
             app.setEnabled(false);
             // Search for an empty view
-            View emptyView = app.getActiveView();
+            emptyView = app.getActiveView();
             if (emptyView == null
                     || !emptyView.isEmpty()
                     || !emptyView.isEnabled()) {
                 emptyView = null;
             }
-            final View view;
-            boolean disposeView;
-            if (emptyView == null) {
-                view = app.createView();
-                app.add(view);
-                disposeView = true;
-            } else {
-                view = emptyView;
-                disposeView = false;
-            }
+            boolean disposeView = doesViewNotExist(app);
+
             URIChooser chooser = getChooser(view);
             chooser.setDialogType(JFileChooser.OPEN_DIALOG);
-            if (showDialog(chooser, app.getComponent()) == JFileChooser.APPROVE_OPTION) {
-                app.show(view);
-                URI uri = chooser.getSelectedURI();
-                // Prevent same URI from being opened more than once
-                if (!getApplication().getModel().isAllowMultipleViewsPerURI()) {
-                    for (View v : getApplication().getViews()) {
-                        if (v.getURI() != null && v.getURI().equals(uri)) {
-                            v.getComponent().requestFocus();
-                            if (disposeView) {
-                                app.dispose(view);
-                            }
-                            app.setEnabled(true);
-                            return;
-                        }
-                    }
-                }
-                openViewFromURI(view, uri, chooser);
-            } else {
+                createViewFromURI(chooser,app,disposeView,view);
+        }
+    }
+
+    private boolean doesViewNotExist(Application app){
+        if (emptyView == null) {
+            view = app.createView();
+            app.add(view);
+            return  true;
+        } else {
+            view = emptyView;
+            return  false;
+        }
+    }
+
+    private void createViewFromURI (URIChooser chooser, Application app, Boolean disposeView, View view){
+        if (showDialog(chooser, app.getComponent()) == JFileChooser.APPROVE_OPTION) {
+            app.show(view);
+            URI uri = chooser.getSelectedURI();
+            // Prevent same URI from being opened more than once
+            if (!getApplication().getModel().isAllowMultipleViewsPerURI()) {
+                checkURI(app, disposeView, uri, view);
+            }
+            openViewFromURI(view, uri, chooser);
+        } else {
+            if (disposeView) {
+                app.dispose(view);
+            }
+            app.setEnabled(true);
+        }
+    }
+
+    private void checkURI (Application app, Boolean disposeView, URI uri, View view){
+        for (View v : getApplication().getViews()) {
+            if (v.getURI() != null && v.getURI().equals(uri)) {
+                v.getComponent().requestFocus();
                 if (disposeView) {
                     app.dispose(view);
                 }
                 app.setEnabled(true);
+                return;
             }
         }
     }
+
+
 
     protected void openViewFromURI(final View view, final URI uri, final URIChooser chooser) {
         final Application app = getApplication();
