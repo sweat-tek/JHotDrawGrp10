@@ -111,24 +111,36 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
             Path2D.Double p = new Path2D.Double();
             double aw = roundrect.arcwidth / 2d;
             double ah = roundrect.archeight / 2d;
-            p.moveTo((roundrect.x + aw), (float) roundrect.y);
-            p.lineTo((roundrect.x + roundrect.width - aw), (float) roundrect.y);
-            p.curveTo((roundrect.x + roundrect.width - aw * ACV), (float) roundrect.y,
-                    (roundrect.x + roundrect.width), (float) (roundrect.y + ah * ACV),
-                    (roundrect.x + roundrect.width), (roundrect.y + ah));
-            p.lineTo((roundrect.x + roundrect.width), (roundrect.y + roundrect.height - ah));
-            p.curveTo(
-                    (roundrect.x + roundrect.width), (roundrect.y + roundrect.height - ah * ACV),
-                    (roundrect.x + roundrect.width - aw * ACV), (roundrect.y + roundrect.height),
-                    (roundrect.x + roundrect.width - aw), (roundrect.y + roundrect.height));
-            p.lineTo((roundrect.x + aw), (roundrect.y + roundrect.height));
-            p.curveTo((roundrect.x + aw * ACV), (roundrect.y + roundrect.height),
-                    (roundrect.x), (roundrect.y + roundrect.height - ah * ACV),
-                    (float) roundrect.x, (roundrect.y + roundrect.height - ah));
-            p.lineTo((float) roundrect.x, (roundrect.y + ah));
-            p.curveTo((roundrect.x), (roundrect.y + ah * ACV),
-                    (roundrect.x + aw * ACV), (float) (roundrect.y),
-                    (float) (roundrect.x + aw), (float) (roundrect.y));
+
+            double middleLeftX = roundrect.x + aw;
+            double middleRightX = roundrect.x + roundrect.width - aw;
+            double rightX = roundrect.x + roundrect.width;
+            double middleBottomY = roundrect.y + ah;
+            double middleTopY = roundrect.y + roundrect.height - ah;
+            double topY = roundrect.y + roundrect.height;
+
+            double curveLeftX = roundrect.x + aw * ACV;
+            double curveRightX = rightX - aw * ACV;
+            double curveBottomY = roundrect.y + ah * ACV;
+            double curveTopY = topY - ah * ACV;
+
+            p.moveTo(middleLeftX, (float) roundrect.y);
+            p.lineTo(middleRightX, (float) roundrect.y);
+            p.curveTo(curveRightX, (float) roundrect.y,
+                    rightX, (float) curveBottomY,
+                    rightX, middleBottomY);
+            p.lineTo(rightX, middleTopY);
+            p.curveTo(rightX, curveTopY,
+                    curveRightX, topY,
+                    middleRightX, topY);
+            p.lineTo(middleLeftX, topY);
+            p.curveTo(curveLeftX, topY,
+                    roundrect.x, curveTopY,
+                    (float) roundrect.x, middleTopY);
+            p.lineTo((float) roundrect.x, middleBottomY);
+            p.curveTo(roundrect.x, curveBottomY,
+                    curveLeftX, (float) roundrect.y,
+                    middleLeftX, (float) roundrect.y);
             p.closePath();
             g.draw(p);
         }
