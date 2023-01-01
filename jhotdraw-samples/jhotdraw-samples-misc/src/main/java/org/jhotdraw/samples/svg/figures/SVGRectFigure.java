@@ -108,30 +108,37 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
             // We have to generate the path for the round rectangle manually,
             // because the path of a Java RoundRectangle is drawn counter clockwise
             // whereas an SVG rect needs to be drawn clockwise.
-            Path2D.Double p = new Path2D.Double();
-
             Points points = new Points(roundrect);
 
-            p.moveTo(points.middleLeftX, (float) points.y);
-            p.lineTo(points.middleRightX, (float) points.y);
-            p.curveTo(points.curveRightX, (float) points.y,
-                    points.rightX, (float) points.curveBottomY,
-                    points.rightX, points.middleBottomY);
-            p.lineTo(points.rightX, points.middleTopY);
-            p.curveTo(points.rightX, points.curveTopY,
-                    points.curveRightX, points.topY,
-                    points.middleRightX, points.topY);
-            p.lineTo(points.middleLeftX, points.topY);
-            p.curveTo(points.curveLeftX, points.topY,
-                    points.x, points.curveTopY,
-                    (float) points.x, points.middleTopY);
-            p.lineTo((float) points.x, points.middleBottomY);
-            p.curveTo(points.x, points.curveBottomY,
-                    points.curveLeftX, (float) points.y,
-                    points.middleLeftX, (float) points.y);
-            p.closePath();
+            Path2D.Double p = generatePath(points);
+
             g.draw(p);
         }
+    }
+
+    private Path2D.Double generatePath(Points points) {
+        Path2D.Double p = new Path2D.Double();
+
+        p.moveTo((float) points.middleLeftX, (float) points.y);
+        p.lineTo((float) points.middleRightX, (float) points.y);
+        p.curveTo((float) points.curveRightX, (float) points.y,
+                (float) points.rightX, (float) points.curveBottomY,
+                (float) points.rightX, (float) points.middleBottomY);
+        p.lineTo((float) points.rightX, (float) points.middleTopY);
+        p.curveTo((float) points.rightX, (float) points.curveTopY,
+                (float) points.curveRightX, (float) points.topY,
+                (float) points.middleRightX, (float) points.topY);
+        p.lineTo((float) points.middleLeftX, (float) points.topY);
+        p.curveTo((float) points.curveLeftX, (float) points.topY,
+                (float) points.x, (float) points.curveTopY,
+                (float) points.x, (float) points.middleTopY);
+        p.lineTo((float) points.x, (float) points.middleBottomY);
+        p.curveTo((float) points.x, (float) points.curveBottomY,
+                (float) points.curveLeftX, (float) points.y,
+                (float) points.middleLeftX, (float) points.y);
+        p.closePath();
+
+        return p;
     }
 
     private class Points {
