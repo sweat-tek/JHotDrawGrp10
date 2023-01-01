@@ -38,13 +38,7 @@ public class DelegationSelectionTool extends SelectionTool {
      * Set this to true to turn on debugging output on System.out.
      */
     private static final boolean DEBUG = false;
-    /**
-     * A set of actions which is applied to the drawing.
-     */
     private Collection<Action> drawingActions;
-    /**
-     * A set of actions which is applied to a selection of figures.
-     */
     private Collection<Action> selectionActions;
     /**
      * We use this timer, to show a popup menu, when the user presses the
@@ -363,5 +357,19 @@ public class DelegationSelectionTool extends SelectionTool {
             return figure.getToolTipText(viewToDrawing(evt.getPoint()));
         }
         return null;
+    }
+
+    /**
+     * A set of actions which is applied to the drawing.
+     */
+    public Collection<Action> getDrawingActions() {
+        return drawingActions;
+    }
+
+    /**
+     * A set of actions which is applied to a selection of figures.
+     */
+    public Collection<Action> getFigureActions() {
+        return selectionActions;
     }
 }
