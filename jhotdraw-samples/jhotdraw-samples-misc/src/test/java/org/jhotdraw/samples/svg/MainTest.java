@@ -36,7 +36,9 @@ public class MainTest {
         String[] args = {};
         Main.main(args);
 
-        while (false){
+        boolean aBoolean = 1 + 1 == 3;
+
+        while (aBoolean){
 
         }
     }
