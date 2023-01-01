@@ -19,6 +19,10 @@ jobs:
                                   distribution: "adopt"
                                   cache: maven
                         - name: Build with Maven
-                          run: mvn --batch-mode --update-snapshots package verify
+                          run: mvn clean compile --batch-mode --update-snapshots package verify
+                          env:
+                                  GITHUB_TOKEN: ${{ github.token }}
+                        - name: Test with Maven
+                          run: mvn test
                           env:
                                   GITHUB_TOKEN: ${{ github.token }}
