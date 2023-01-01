@@ -288,7 +288,7 @@ public class DelegationSelectionTool extends SelectionTool {
             // If possible, continue to work with the current selection
             Figure figure = null;
             if (isSelectBehindEnabled()) {
-                figure = getAllSelectedFigures(figure,p,v);
+                figure = getAllSelectedFigures(figure, p, v);
             }
             // If the point is not contained in the current selection,
             // search for a figure in the drawing.
