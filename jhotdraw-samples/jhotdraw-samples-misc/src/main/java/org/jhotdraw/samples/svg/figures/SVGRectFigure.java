@@ -109,40 +109,69 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
             // because the path of a Java RoundRectangle is drawn counter clockwise
             // whereas an SVG rect needs to be drawn clockwise.
             Path2D.Double p = new Path2D.Double();
-            double aw = roundrect.arcwidth / 2d;
-            double ah = roundrect.archeight / 2d;
 
-            double middleLeftX = roundrect.x + aw;
-            double middleRightX = roundrect.x + roundrect.width - aw;
-            double rightX = roundrect.x + roundrect.width;
-            double middleBottomY = roundrect.y + ah;
-            double middleTopY = roundrect.y + roundrect.height - ah;
-            double topY = roundrect.y + roundrect.height;
+            Points points = new Points(roundrect);
 
-            double curveLeftX = roundrect.x + aw * ACV;
-            double curveRightX = rightX - aw * ACV;
-            double curveBottomY = roundrect.y + ah * ACV;
-            double curveTopY = topY - ah * ACV;
-
-            p.moveTo(middleLeftX, (float) roundrect.y);
-            p.lineTo(middleRightX, (float) roundrect.y);
-            p.curveTo(curveRightX, (float) roundrect.y,
-                    rightX, (float) curveBottomY,
-                    rightX, middleBottomY);
-            p.lineTo(rightX, middleTopY);
-            p.curveTo(rightX, curveTopY,
-                    curveRightX, topY,
-                    middleRightX, topY);
-            p.lineTo(middleLeftX, topY);
-            p.curveTo(curveLeftX, topY,
-                    roundrect.x, curveTopY,
-                    (float) roundrect.x, middleTopY);
-            p.lineTo((float) roundrect.x, middleBottomY);
-            p.curveTo(roundrect.x, curveBottomY,
-                    curveLeftX, (float) roundrect.y,
-                    middleLeftX, (float) roundrect.y);
+            p.moveTo(points.middleLeftX, (float) points.y);
+            p.lineTo(points.middleRightX, (float) points.y);
+            p.curveTo(points.curveRightX, (float) points.y,
+                    points.rightX, (float) points.curveBottomY,
+                    points.rightX, points.middleBottomY);
+            p.lineTo(points.rightX, points.middleTopY);
+            p.curveTo(points.rightX, points.curveTopY,
+                    points.curveRightX, points.topY,
+                    points.middleRightX, points.topY);
+            p.lineTo(points.middleLeftX, points.topY);
+            p.curveTo(points.curveLeftX, points.topY,
+                    points.x, points.curveTopY,
+                    (float) points.x, points.middleTopY);
+            p.lineTo((float) points.x, points.middleBottomY);
+            p.curveTo(points.x, points.curveBottomY,
+                    points.curveLeftX, (float) points.y,
+                    points.middleLeftX, (float) points.y);
             p.closePath();
             g.draw(p);
+        }
+    }
+
+    private class Points {
+        private double x;
+        private double y;
+
+        private double aw;
+        private double ah;
+
+        private double middleLeftX;
+        private double middleRightX;
+        private double rightX;
+        private double middleBottomY;
+        private double middleTopY;
+        private double topY;
+
+        private double curveLeftX;
+        private double curveRightX;
+        private double curveBottomY;
+        private double curveTopY;
+
+        public Points(RoundRectangle2D.Double roundRect) {
+
+            aw = roundRect.arcwidth / 2d;
+            ah = roundRect.archeight / 2d;
+
+            x = roundRect.x;
+            middleLeftX = x + aw;
+            middleRightX = x + roundRect.width - aw;
+            rightX = x + roundRect.width;
+
+            y = roundRect.y;
+            middleBottomY = y + ah;
+            middleTopY = y + roundRect.height - ah;
+            topY = y + roundRect.height;
+
+            curveLeftX = x + aw * ACV;
+            curveRightX = rightX - aw * ACV;
+            curveBottomY = y + ah * ACV;
+            curveTopY = topY - ah * ACV;
         }
     }
 
