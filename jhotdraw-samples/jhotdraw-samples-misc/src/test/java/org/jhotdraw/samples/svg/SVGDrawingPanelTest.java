@@ -3,7 +3,6 @@ package org.jhotdraw.samples.svg;
 import org.jhotdraw.draw.Drawing;
 import org.junit.Test;
 
-import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import static org.junit.Assert.*;
