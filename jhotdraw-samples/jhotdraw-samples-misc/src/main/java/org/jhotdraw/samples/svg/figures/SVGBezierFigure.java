@@ -65,25 +65,6 @@ public class SVGBezierFigure extends BezierFigure {
         return handles;
     }
 
-    /*
-    public Collection<Handle> createHandles(SVGPathFigure pathFigure, int detailLevel) {
-        LinkedList<Handle> handles = new LinkedList<Handle>();
-        switch (detailLevel % 2) {
-            case 0:
-                for (int i = 0, n = path.size(); i < n; i++) {
-                    handles.add(new BezierNodeHandle(this, i, pathFigure));
-                }
-                break;
-            case 1:
-                TransformHandleKit.addTransformHandles(this, handles);
-                break;
-            default:
-                break;
-        }
-        return handles;
-    }
-    */
-
     @FeatureEntryPoint(value = "bezier tool")
     @Override
     public boolean handleMouseClick(Point2D.Double p, MouseEvent evt, DrawingView view) {
