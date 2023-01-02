@@ -108,29 +108,77 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
             // We have to generate the path for the round rectangle manually,
             // because the path of a Java RoundRectangle is drawn counter clockwise
             // whereas an SVG rect needs to be drawn clockwise.
-            Path2D.Double p = new Path2D.Double();
-            double aw = roundrect.arcwidth / 2d;
-            double ah = roundrect.archeight / 2d;
-            p.moveTo((roundrect.x + aw), (float) roundrect.y);
-            p.lineTo((roundrect.x + roundrect.width - aw), (float) roundrect.y);
-            p.curveTo((roundrect.x + roundrect.width - aw * ACV), (float) roundrect.y,
-                    (roundrect.x + roundrect.width), (float) (roundrect.y + ah * ACV),
-                    (roundrect.x + roundrect.width), (roundrect.y + ah));
-            p.lineTo((roundrect.x + roundrect.width), (roundrect.y + roundrect.height - ah));
-            p.curveTo(
-                    (roundrect.x + roundrect.width), (roundrect.y + roundrect.height - ah * ACV),
-                    (roundrect.x + roundrect.width - aw * ACV), (roundrect.y + roundrect.height),
-                    (roundrect.x + roundrect.width - aw), (roundrect.y + roundrect.height));
-            p.lineTo((roundrect.x + aw), (roundrect.y + roundrect.height));
-            p.curveTo((roundrect.x + aw * ACV), (roundrect.y + roundrect.height),
-                    (roundrect.x), (roundrect.y + roundrect.height - ah * ACV),
-                    (float) roundrect.x, (roundrect.y + roundrect.height - ah));
-            p.lineTo((float) roundrect.x, (roundrect.y + ah));
-            p.curveTo((roundrect.x), (roundrect.y + ah * ACV),
-                    (roundrect.x + aw * ACV), (float) (roundrect.y),
-                    (float) (roundrect.x + aw), (float) (roundrect.y));
-            p.closePath();
+            Points points = new Points(roundrect);
+
+            Path2D.Double p = generatePath(points);
+
             g.draw(p);
+        }
+    }
+
+    private Path2D.Double generatePath(Points points) {
+        Path2D.Double p = new Path2D.Double();
+
+        p.moveTo((float) points.middleLeftX, (float) points.y);
+        p.lineTo((float) points.middleRightX, (float) points.y);
+        p.curveTo((float) points.curveRightX, (float) points.y,
+                (float) points.rightX, (float) points.curveBottomY,
+                (float) points.rightX, (float) points.middleBottomY);
+        p.lineTo((float) points.rightX, (float) points.middleTopY);
+        p.curveTo((float) points.rightX, (float) points.curveTopY,
+                (float) points.curveRightX, (float) points.topY,
+                (float) points.middleRightX, (float) points.topY);
+        p.lineTo((float) points.middleLeftX, (float) points.topY);
+        p.curveTo((float) points.curveLeftX, (float) points.topY,
+                (float) points.x, (float) points.curveTopY,
+                (float) points.x, (float) points.middleTopY);
+        p.lineTo((float) points.x, (float) points.middleBottomY);
+        p.curveTo((float) points.x, (float) points.curveBottomY,
+                (float) points.curveLeftX, (float) points.y,
+                (float) points.middleLeftX, (float) points.y);
+        p.closePath();
+
+        return p;
+    }
+
+    private class Points {
+        private double x;
+        private double y;
+
+        private double aw;
+        private double ah;
+
+        private double middleLeftX;
+        private double middleRightX;
+        private double rightX;
+        private double middleBottomY;
+        private double middleTopY;
+        private double topY;
+
+        private double curveLeftX;
+        private double curveRightX;
+        private double curveBottomY;
+        private double curveTopY;
+
+        public Points(RoundRectangle2D.Double roundRect) {
+
+            aw = roundRect.arcwidth / 2d;
+            ah = roundRect.archeight / 2d;
+
+            x = roundRect.x;
+            middleLeftX = x + aw;
+            middleRightX = x + roundRect.width - aw;
+            rightX = x + roundRect.width;
+
+            y = roundRect.y;
+            middleBottomY = y + ah;
+            middleTopY = y + roundRect.height - ah;
+            topY = y + roundRect.height;
+
+            curveLeftX = x + aw * ACV;
+            curveRightX = rightX - aw * ACV;
+            curveBottomY = y + ah * ACV;
+            curveTopY = topY - ah * ACV;
         }
     }
 
