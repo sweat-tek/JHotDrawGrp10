@@ -80,6 +80,8 @@ public class OpenFileAction extends AbstractApplicationAction {
 
     private static final long serialVersionUID = 1L;
     public static final String ID = "file.open";
+    public static View view = null;
+    public static View emptyView = null;
 
 
     /**
