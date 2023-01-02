@@ -59,8 +59,7 @@ public class SVGBezierFigure extends BezierFigure {
             for (int i = 0, n = path.size(); i < n; i++) {
                 handles.add(new BezierNodeHandle(this, i, pathFigure));
             }
-        }
-        else if (detailLevel % 2 == 1) {
+        } else if (detailLevel % 2 == 1) {
             TransformHandleKit.addTransformHandles(this, handles);
         }
         return handles;

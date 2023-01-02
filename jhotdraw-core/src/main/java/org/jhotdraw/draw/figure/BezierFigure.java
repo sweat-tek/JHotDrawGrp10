@@ -438,14 +438,12 @@ public class BezierFigure extends AbstractAttributedFigure {
      * @return returns nodes for cappedPath
      */
     private BezierPath.Node setBezierPathCappedNodes(int index, boolean start){
-        if (start){
+        if (start) {
             return cappedPath.get(index);
-        }
-        else {
+        } else {
             if (index == 0){
                 return cappedPath.get(cappedPath.size() - 1);
-            }
-            else {
+            } else {
                 return cappedPath.get(cappedPath.size() - 2);
             }
         }
@@ -461,9 +459,7 @@ public class BezierFigure extends AbstractAttributedFigure {
             } else {
                 pp = p1.getControlPoint(0);
             }
-        }
-
-        else {
+        } else {
             if ((p0.getMask() & BezierPath.C1_MASK) != 0) {
                 pp = p0.getControlPoint(1);
             } else if ((p1.getMask() & BezierPath.C2_MASK) != 0) {
