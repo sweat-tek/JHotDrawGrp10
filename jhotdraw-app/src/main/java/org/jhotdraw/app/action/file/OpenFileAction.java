@@ -115,7 +115,7 @@ public class OpenFileAction extends AbstractApplicationAction {
 
             URIChooser chooser = getChooser(view);
             chooser.setDialogType(JFileChooser.OPEN_DIALOG);
-                createViewFromURI(chooser,app,disposeView,view);
+                createViewFromURI(chooser, app, disposeView, view);
         }
     }
 
