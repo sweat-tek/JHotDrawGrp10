@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.BezierFigure;
 import java.util.*;
 import org.jhotdraw.draw.*;

@@ -13,6 +13,8 @@ import java.awt.geom.*;
 import java.io.*;
 import java.util.*;
 import javax.swing.undo.*;
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.draw.DrawingView;
@@ -83,6 +85,7 @@ public class BezierFigure extends AbstractAttributedFigure {
      *
      * @param isClosed Specifies whether the <code>BezierPath</code> shall be closed.
      */
+    @FeatureEntryPoint(value = "BezierFigure")
     public BezierFigure(boolean isClosed) {
         path = new BezierPath();
         set(PATH_CLOSED, isClosed);
@@ -167,6 +170,7 @@ public class BezierFigure extends AbstractAttributedFigure {
         }
     }
 
+    /*
     @Override
     public boolean contains(Point2D.Double p) {
         double tolerance = Math.max(2f, AttributeKeys.getStrokeTotalWidth(this, 1.0) / 2d);
@@ -208,6 +212,60 @@ public class BezierFigure extends AbstractAttributedFigure {
                     return true;
                 }
             }
+        }
+        return false;
+    }
+*/
+
+    private boolean createStroke(Point2D.Double p){
+        if (path.contains(p)) {
+            return true;
+        }
+        double grow = AttributeKeys.getPerpendicularHitGrowth(this, 1.0) * 2d;
+        GrowStroke gs = new GrowStroke(grow,
+                AttributeKeys.getStrokeTotalWidth(this, 1.0)
+                        * get(STROKE_MITER_LIMIT));
+        if (gs.createStrokedShape(path).contains(p)) {
+            return true;
+        } else {
+            if (isClosed()) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private boolean setCreatedPoints(int nodeIndex, double tolerance, Point2D.Double p){
+        BezierPath cp = getCappedPath();
+        Point2D.Double p1 = path.get(nodeIndex, 0);
+        Point2D.Double p2 = cp.get(nodeIndex, 0);
+        // FIXME - Check here, if caps path contains the point
+        if (Geom.lineContainsPoint(p1.x, p1.y, p2.x, p2.y, p.x, p.y, tolerance)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean createPoints(Point2D.Double p){
+        double tolerance = Math.max(2f, AttributeKeys.getStrokeTotalWidth(this, 1.0) / 2d);
+        if (getCappedPath().outlineContains(p, tolerance)) {
+            return true;
+        }
+        if (get(START_DECORATION) != null) {
+            return setCreatedPoints(0, tolerance, p);
+        }
+        if (get(END_DECORATION) != null) {
+            return setCreatedPoints(path.size() - 1, tolerance, p);
+        }
+        return false;
+    }
+    @Override
+    public boolean contains(Point2D.Double p) {
+        if (isClosed() || get(FILL_COLOR) != null && get(UNCLOSED_PATH_FILLED)) {
+            return createStroke(p);
+        }
+        if (!isClosed()) {
+            return createPoints(p);
         }
         return false;
     }

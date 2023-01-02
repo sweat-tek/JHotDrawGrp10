@@ -46,12 +46,27 @@ public class SVGBezierFigure extends BezierFigure {
         this(false);
     }
 
-    @FeatureEntryPoint(value = "bezier tool")
     public SVGBezierFigure(boolean isClosed) {
         super(isClosed);
         set(UNCLOSED_PATH_FILLED, true);
     }
 
+    //TODO
+    //Test this
+    public Collection<Handle> createHandles(SVGPathFigure pathFigure, int detailLevel) {
+        LinkedList<Handle> handles = new LinkedList<Handle>();
+        if (detailLevel % 2 == 0){
+            for (int i = 0, n = path.size(); i < n; i++) {
+                handles.add(new BezierNodeHandle(this, i, pathFigure));
+            }
+        }
+        else if (detailLevel % 2 == 1) {
+            TransformHandleKit.addTransformHandles(this, handles);
+        }
+        return handles;
+    }
+
+    /*
     public Collection<Handle> createHandles(SVGPathFigure pathFigure, int detailLevel) {
         LinkedList<Handle> handles = new LinkedList<Handle>();
         switch (detailLevel % 2) {
@@ -68,6 +83,7 @@ public class SVGBezierFigure extends BezierFigure {
         }
         return handles;
     }
+    */
 
     @FeatureEntryPoint(value = "bezier tool")
     @Override
@@ -186,6 +202,7 @@ public class SVGBezierFigure extends BezierFigure {
      * the line width, plus 2 divided by the zoom factor.
      */
     @Override
+    @FeatureEntryPoint(value = "Join Segments")
     public boolean joinSegments(Point2D.Double join, double tolerance) {
         // Apply inverse of transform to point
         if (get(TRANSFORM) != null) {
@@ -213,6 +230,7 @@ public class SVGBezierFigure extends BezierFigure {
      * the line width, plus 2 divided by the zoom factor.
      */
     @Override
+    @FeatureEntryPoint(value = "Split Segments")
     public int splitSegment(Point2D.Double split, double tolerance) {
         // Apply inverse of transform to point
         if (get(TRANSFORM) != null) {
