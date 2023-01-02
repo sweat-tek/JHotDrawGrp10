@@ -79,7 +79,7 @@ public class DelegationSelectionTool extends SelectionTool {
         this.drawingActions = drawingActions;
     }
 
-    public void setFigureActions(Collection<Action> selectionActions) {
+    public void setSelectionActions(Collection<Action> selectionActions) {
         this.selectionActions = selectionActions;
     }
 
@@ -369,7 +369,7 @@ public class DelegationSelectionTool extends SelectionTool {
     /**
      * A set of actions which is applied to a selection of figures.
      */
-    public Collection<Action> getFigureActions() {
+    public Collection<Action> getSelectionActions() {
         return selectionActions;
     }
 }

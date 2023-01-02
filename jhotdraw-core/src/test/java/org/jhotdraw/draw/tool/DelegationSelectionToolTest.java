@@ -46,13 +46,13 @@ public class DelegationSelectionToolTest {
        actions.add(action);
 
        //Check Action does not consist in the current Collection
-       assertTrue(!selectionTool.getFigureActions().contains(action));
+       assertTrue(!selectionTool.getSelectionActions().contains(action));
 
        // Insert Collection of Actions in the DelegationSelectionTool
-       selectionTool.setFigureActions(actions);
+       selectionTool.setSelectionActions(actions);
 
         // Check if the Action exist in the Collection
-       assertTrue(selectionTool.getFigureActions().contains(action));
+       assertTrue(selectionTool.getSelectionActions().contains(action));
 
     }
 
