@@ -56,4 +56,39 @@ public class DelegationSelectionToolTest {
 
     }
 
+
+/*
+    @Test
+    public void TestHandleDoubleClick(){
+        DelegationSelectionTool delegationSelectionTool = new DelegationSelectionTool();
+
+        DrawingView drawingView = new DefaultDrawingView();
+
+        DrawingEditor editor = new DefaultDrawingEditor();
+        editor.add(drawingView);
+        editor.setActiveView(drawingView);
+
+
+        delegationSelectionTool.activate(editor);
+
+        System.out.println(delegationSelectionTool.getView().getSelectionCount());
+
+
+
+        TextFigure textFigure = new TextFigure();
+        Component cursor = null;
+        MouseAdapter mouseAdapter = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        };
+
+       MouseEvent mouseEvent = new MouseEvent(cursor, 1, 1, 0, 20, 20,1,false);
+       mouseAdapter.mouseClicked(mouseEvent);
+
+       selectionTool.handleDoubleClick(mouseEvent);
+
+   }
+    */
 }
