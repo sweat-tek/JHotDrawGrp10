@@ -1,13 +1,6 @@
 package org.jhotdraw.samples.svg;
 
 import org.jhotdraw.draw.Drawing;
-import org.jhotdraw.draw.io.*;
-import org.jhotdraw.samples.svg.figures.SVGImageFigure;
-import org.jhotdraw.samples.svg.figures.SVGTextFigure;
-import org.jhotdraw.samples.svg.io.ImageMapOutputFormat;
-import org.jhotdraw.samples.svg.io.SVGOutputFormat;
-import org.jhotdraw.samples.svg.io.SVGZInputFormat;
-import org.jhotdraw.samples.svg.io.SVGZOutputFormat;
 import org.junit.Test;
 
 import java.awt.image.BufferedImage;
