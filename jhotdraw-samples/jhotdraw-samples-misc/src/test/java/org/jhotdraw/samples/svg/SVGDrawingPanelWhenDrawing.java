@@ -1,15 +1,10 @@
 package org.jhotdraw.samples.svg;
 
-import com.tngtech.jgiven.Stage;
-import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import org.jhotdraw.draw.Drawing;
-import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.io.ImageInputFormat;
 import org.jhotdraw.draw.io.InputFormat;
 import org.jhotdraw.samples.svg.figures.SVGImageFigure;
-
 import java.util.LinkedList;
-import java.util.List;
 
 public class SVGDrawingPanelWhenDrawing {
 
