@@ -41,7 +41,7 @@ public class SVGRectFigureTest {
     public void drawStroke() {
         double x = 0;
         double height = 6;
-        SVGRectFigure svgRectFigure = new SVGRectFigure(x, 0, 6, height,1d,1d);
+        SVGRectFigure svgRectFigure = new SVGRectFigure(x, 0, 6, height, 1d, 1d);
         BufferedImage buf = new BufferedImage(
                 100,
                 100,
@@ -49,11 +49,11 @@ public class SVGRectFigureTest {
         Graphics2D g = buf.createGraphics();
 
         //Check if the pixel color is white
-        assertEquals(0, buf.getRGB((int)x, (int)(height / 2)));
+        assertEquals(0, buf.getRGB((int) x, (int) (height / 2)));
 
         svgRectFigure.drawStroke(g);
 
         //Check if something was drawn and the pixel color has changed
-        assertNotEquals(0, buf.getRGB((int)x, (int)(height / 2)));
+        assertNotEquals(0, buf.getRGB((int) x, (int) (height / 2)));
     }
 }
