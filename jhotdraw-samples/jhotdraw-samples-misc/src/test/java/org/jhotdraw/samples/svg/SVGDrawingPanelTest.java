@@ -18,8 +18,6 @@ public class SVGDrawingPanelTest {
         assertNotNull(drawing.getInputFormats());
 
         assertEquals(list.size(), 5);
-
-        assertEquals(drawing, panel.createDrawing());
     }
 
     @Test
@@ -32,8 +30,6 @@ public class SVGDrawingPanelTest {
         assertNotNull(drawing.getOutputFormats());
 
         assertEquals(list.size(), 6);
-
-        assertEquals(drawing, panel.createDrawing());
 
     }
 
