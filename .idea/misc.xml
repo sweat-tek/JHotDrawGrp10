@@ -7,6 +7,18 @@
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/jhotdraw-actions/pom.xml" />
+        <option value="$PROJECT_DIR$/jhotdraw-api/pom.xml" />
+        <option value="$PROJECT_DIR$/jhotdraw-core/pom.xml" />
+        <option value="$PROJECT_DIR$/jhotdraw-datatransfer/pom.xml" />
+        <option value="$PROJECT_DIR$/jhotdraw-gui/pom.xml" />
+        <option value="$PROJECT_DIR$/jhotdraw-samples/jhotdraw-samples-mini/pom.xml" />
+        <option value="$PROJECT_DIR$/jhotdraw-utils/pom.xml" />
+        <option value="$PROJECT_DIR$/jhotdraw-xml/pom.xml" />
+      </set>
+    </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>
