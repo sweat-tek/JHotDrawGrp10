@@ -1,0 +1,90 @@
+{
+  "className": "org.jhotdraw.samples.svg.SVGDrawingPanelBDDTest",
+  "name": "SVG Drawing Panel BDD",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.samples.svg.SVGDrawingPanelBDDTest",
+      "testMethodName": "SVGDrawingPanelBDDTest",
+      "description": "S v g drawing panel b d d test",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "create drawing",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "create drawing"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 17769600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "drawing image",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "drawing image"
+                },
+                {
+                  "value": "QuadTreeDrawing@7395550",
+                  "argumentInfo": {
+                    "argumentName": "drawing",
+                    "formattedValue": "QuadTreeDrawing@7395550"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 4483600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "inputs exist",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "inputs exist"
+                },
+                {
+                  "value": "QuadTreeDrawing@7395550",
+                  "argumentInfo": {
+                    "argumentName": "drawing",
+                    "formattedValue": "QuadTreeDrawing@7395550"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 607100,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 274969500
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 274969500
+    }
+  ],
+  "tagMap": {}
+}
