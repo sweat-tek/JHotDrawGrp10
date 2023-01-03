@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
+import org.jhotdraw.gui.ScaleFactor;
 import org.jhotdraw.gui.action.ButtonFactory;
 import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
 import org.jhotdraw.gui.plaf.palette.PaletteFormattedTextFieldUI;
@@ -46,6 +47,7 @@ public class FontToolBar extends AbstractToolBar {
 
     private static final long serialVersionUID = 1L;
     private SelectionComponentDisplayer displayer;
+    private ScaleFactor scaleFactor;
 
     /**
      * Creates new instance.
@@ -55,6 +57,7 @@ public class FontToolBar extends AbstractToolBar {
         setName(labels.getString("font.toolbar"));
         JFontChooser.loadAllFonts();
         setDisclosureStateCount(3);
+        scaleFactor = new ScaleFactor(1d);
     }
 
     @Override
@@ -183,7 +186,6 @@ public class FontToolBar extends AbstractToolBar {
                 gbc.insets = new Insets(3, 0, 0, 0);
                 p2.add(sizePopupButton, gbc);
                 sizeSlider.setUI((SliderUI) PaletteSliderUI.createUI(sizeSlider));
-                sizeSlider.setScaleFactor(1d);
                 disposables.add(new FigureAttributeEditorHandler<Double>(FONT_SIZE, sizeSlider, editor));
                 gbc = new GridBagConstraints();
                 gbc.gridx = 0;
@@ -292,7 +294,6 @@ public class FontToolBar extends AbstractToolBar {
                 gbc.insets = new Insets(3, 0, 0, 0);
                 p2.add(sizePopupButton, gbc);
                 sizeSlider.setUI((SliderUI) PaletteSliderUI.createUI(sizeSlider));
-                sizeSlider.setScaleFactor(1d);
                 disposables.add(new FigureAttributeEditorHandler<Double>(FONT_SIZE, sizeSlider, editor));
                 gbc = new GridBagConstraints();
                 gbc.gridx = 0;
