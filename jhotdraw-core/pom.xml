@@ -41,18 +41,17 @@
 			<version>4.13.2</version>
 			<scope>test</scope>
 		</dependency>
+		 <dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>jhotdraw-actions</artifactId>
+		  <version>${project.version}</version>
+		 </dependency>
 		<dependency>
 			<groupId>com.tngtech.jgiven</groupId>
 			<artifactId>jgiven-junit</artifactId>
 			<version>1.2.4</version>
 			<scope>test</scope>
 		</dependency>
-	 <dependency>
-	  <groupId>${project.groupId}</groupId>
-	  <artifactId>jhotdraw-actions</artifactId>
-	  <version>${project.version}</version>
-	 </dependency>
-
 		<dependency>
 			<groupId>dk.sdu.mmmi</groupId>
 			<artifactId>featuretracer</artifactId>

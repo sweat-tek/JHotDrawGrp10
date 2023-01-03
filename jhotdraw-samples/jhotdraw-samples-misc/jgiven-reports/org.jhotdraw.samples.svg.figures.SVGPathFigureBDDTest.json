@@ -1,0 +1,90 @@
+{
+  "className": "org.jhotdraw.samples.svg.figures.SVGPathFigureBDDTest",
+  "name": "SVG Path Figure BDD",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.samples.svg.figures.SVGPathFigureBDDTest",
+      "testMethodName": "drawingRectangleTest",
+      "description": "Drawing rectangle test",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "create line",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "create line"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 45635000,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "drawing line",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "drawing line"
+                },
+                {
+                  "value": "sun.java2d.SunGraphics2D[font\u003djava.awt.Font[family\u003dDialog,name\u003dDialog,style\u003dplain,size\u003d12],color\u003djava.awt.Color[r\u003d255,g\u003d255,b\u003d255]]",
+                  "argumentInfo": {
+                    "argumentName": "g",
+                    "formattedValue": "sun.java2d.SunGraphics2D[font\u003djava.awt.Font[family\u003dDialog,name\u003dDialog,style\u003dplain,size\u003d12],color\u003djava.awt.Color[r\u003d255,g\u003d255,b\u003d255]]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 68177700,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "line confirm",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "line confirm"
+                },
+                {
+                  "value": "BufferedImage@13006998: type \u003d 2 DirectColorModel: rmask\u003dff0000 gmask\u003dff00 bmask\u003dff amask\u003dff000000 IntegerInterleavedRaster: width \u003d 100 height \u003d 100 #Bands \u003d 4 xOff \u003d 0 yOff \u003d 0 dataOffset[0] 0",
+                  "argumentInfo": {
+                    "argumentName": "buf",
+                    "formattedValue": "BufferedImage@13006998: type \u003d 2 DirectColorModel: rmask\u003dff0000 gmask\u003dff00 bmask\u003dff amask\u003dff000000 IntegerInterleavedRaster: width \u003d 100 height \u003d 100 #Bands \u003d 4 xOff \u003d 0 yOff \u003d 0 dataOffset[0] 0"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 22450100,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 253441700
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 253441700
+    }
+  ],
+  "tagMap": {}
+}

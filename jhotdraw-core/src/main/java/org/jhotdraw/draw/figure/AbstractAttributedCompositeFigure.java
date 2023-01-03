@@ -131,17 +131,20 @@ public abstract class AbstractAttributedCompositeFigure extends AbstractComposit
             drawStroke(g);
         }
         if (get(TEXT_COLOR) != null) {
-            if (get(TEXT_SHADOW_COLOR) != null
-                    && get(TEXT_SHADOW_OFFSET) != null) {
-                Dimension2DDouble d = get(TEXT_SHADOW_OFFSET);
-                g.translate(d.width, d.height);
-                g.setColor(get(TEXT_SHADOW_COLOR));
-                drawText(g);
-                g.translate(-d.width, -d.height);
+            if (get(TEXT_SHADOW_COLOR) != null && get(TEXT_SHADOW_OFFSET) != null) {
+                dimensionAdder(g);
             }
             g.setColor(get(TEXT_COLOR));
             drawText(g);
         }
+    }
+
+    private void dimensionAdder(Graphics2D g) {
+        Dimension2DDouble d = get(TEXT_SHADOW_OFFSET);
+        g.translate(d.width, d.height);
+        g.setColor(get(TEXT_SHADOW_COLOR));
+        drawText(g);
+        g.translate(-d.width, -d.height);
     }
 
     protected void drawChildren(Graphics2D g) {

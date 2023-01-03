@@ -8,6 +8,7 @@
 package org.jhotdraw.draw.tool;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+
 import org.jhotdraw.draw.figure.Figure;
 import java.awt.*;
 import java.awt.event.*;
@@ -37,13 +38,7 @@ public class DelegationSelectionTool extends SelectionTool {
      * Set this to true to turn on debugging output on System.out.
      */
     private static final boolean DEBUG = false;
-    /**
-     * A set of actions which is applied to the drawing.
-     */
     private Collection<Action> drawingActions;
-    /**
-     * A set of actions which is applied to a selection of figures.
-     */
     private Collection<Action> selectionActions;
     /**
      * We use this timer, to show a popup menu, when the user presses the
@@ -84,7 +79,7 @@ public class DelegationSelectionTool extends SelectionTool {
         this.drawingActions = drawingActions;
     }
 
-    public void setFigureActions(Collection<Action> selectionActions) {
+    public void setSelectionActions(Collection<Action> selectionActions) {
         this.selectionActions = selectionActions;
     }
 
@@ -287,46 +282,52 @@ public class DelegationSelectionTool extends SelectionTool {
             // If possible, continue to work with the current selection
             Figure figure = null;
             if (isSelectBehindEnabled()) {
-                for (Figure f : v.getSelectedFigures()) {
-                    if (f.contains(p)) {
-                        figure = f;
-                        break;
-                    }
-                }
+                figure = getAllSelectedFigures(figure, p, v);
             }
             // If the point is not contained in the current selection,
             // search for a figure in the drawing.
             if (figure == null) {
                 figure = v.findFigure(pos);
             }
-            Figure outerFigure = figure;
             if (figure != null && figure.isSelectable()) {
-                if (DEBUG) {
-                    System.out.println("DelegationSelectionTool.handleDoubleClick by figure");
-                }
-                Tool figureTool = figure.getTool(p);
-                if (figureTool == null) {
-                    figure = getDrawing().findFigureInside(p);
-                    if (figure != null) {
-                        figureTool = figure.getTool(p);
-                    }
-                }
-                if (figureTool != null) {
-                    setTracker(figureTool);
-                    figureTool.mousePressed(evt);
-                } else {
-                    if (outerFigure.handleMouseClick(p, evt, getView())) {
-                        v.clearSelection();
-                        v.addToSelection(outerFigure);
-                    } else {
-                        v.clearSelection();
-                        v.addToSelection(outerFigure);
-                        v.setHandleDetailLevel(v.getHandleDetailLevel() + 1);
-                    }
-                }
+                handleDoubleClickouterFigure(figure, p, v, evt);
             }
         }
         evt.consume();
+    }
+
+    private Figure getAllSelectedFigures(Figure figure, Point2D.Double p, DrawingView v){
+        for (Figure f : v.getSelectedFigures()) {
+            if (f.contains(p)) {
+                figure = f;
+                break;
+            }
+        }
+        return figure;
+    }
+    private Figure handleDoubleClickouterFigure (Figure figure, Point2D.Double p, DrawingView v, MouseEvent evt){
+        Figure outerFigure = figure;
+        if (DEBUG) {
+            System.out.println("DelegationSelectionTool.handleDoubleClick by figure");
+        }
+        Tool figureTool = figure.getTool(p);
+        if (figureTool == null) {
+            figure = getDrawing().findFigureInside(p);
+            if (figure != null) {
+                figureTool = figure.getTool(p);
+            }
+        }
+        if (figureTool != null) {
+            setTracker(figureTool);
+            figureTool.mousePressed(evt);
+        } else {
+            v.clearSelection();
+            v.addToSelection(outerFigure);
+            if (!outerFigure.handleMouseClick(p, evt, getView())) {
+                v.setHandleDetailLevel(v.getHandleDetailLevel() + 1);
+            }
+        }
+        return figure;
     }
 
     /**
@@ -356,5 +357,19 @@ public class DelegationSelectionTool extends SelectionTool {
             return figure.getToolTipText(viewToDrawing(evt.getPoint()));
         }
         return null;
+    }
+
+    /**
+     * A set of actions which is applied to the drawing.
+     */
+    public Collection<Action> getDrawingActions() {
+        return drawingActions;
+    }
+
+    /**
+     * A set of actions which is applied to a selection of figures.
+     */
+    public Collection<Action> getSelectionActions() {
+        return selectionActions;
     }
 }
