@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.tool;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.BezierFigure;
 import java.awt.*;
@@ -62,6 +63,7 @@ public class BezierTool extends AbstractTool {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "BezierTool")
     public BezierTool(BezierFigure prototype) {
         this(prototype, null);
     }
@@ -73,14 +75,17 @@ public class BezierTool extends AbstractTool {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "BezierTool")
     public BezierTool(BezierFigure prototype, Map<AttributeKey<?>, Object> attributes) {
         this(prototype, attributes, null);
     }
 
+    @FeatureEntryPoint(value = "BezierTool")
     public BezierTool(BezierFigure prototype, Map<AttributeKey<?>, Object> attributes, String name) {
         this(prototype, attributes, null, true);
     }
 
+    @FeatureEntryPoint(value = "BezierTool")
     public BezierTool(BezierFigure prototype, Map<AttributeKey<?>, Object> attributes, String name, boolean calculateFittedCurveAfterCreation) {
         this.prototype = prototype;
         this.attributes = attributes;
@@ -156,6 +161,7 @@ public class BezierTool extends AbstractTool {
     }
 
     @SuppressWarnings("unchecked")
+    @FeatureEntryPoint(value = "CreateFigure")
     protected BezierFigure createFigure() {
         BezierFigure f = prototype.clone();
         getEditor().applyDefaultAttributesTo(f);
@@ -175,6 +181,7 @@ public class BezierTool extends AbstractTool {
         return createdFigure;
     }
 
+    @FeatureEntryPoint(value = "Add Point To Figure")
     protected void addPointToFigure(Point2D.Double newPoint) {
         int pointCount = createdFigure.getNodeCount();
         createdFigure.willChange();
