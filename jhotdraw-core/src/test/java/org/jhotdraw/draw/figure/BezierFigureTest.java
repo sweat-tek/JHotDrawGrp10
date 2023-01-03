@@ -88,20 +88,21 @@ public class BezierFigureTest {
 
         path.add(node0);
         path.add(node1);
-        System.out.println(path.get(0).x[0] + " " + path.get(0).y[0] + " " + path.get(1).x[0] + " " + path.get(1).y[0]);
-        assertEquals(node0.x[0], path.get(0).x[0], 0.0);
-        assertEquals(node0.x[1], path.get(0).x[1], 0.0);
-        assertEquals(node0.x[2], path.get(0).x[2], 0.0);
-        assertEquals(node0.y[0], path.get(0).y[0], 0.0);
-        assertEquals(node0.y[1], path.get(0).y[1], 0.0);
-        assertEquals(node0.y[2], path.get(0).y[2], 0.0);
+        bezierFigure.path = path;
+        bezierFigure.getCappedPath();
+        assert node0.x[0] == path.get(0).x[0];
+        assert node0.x[1] == path.get(0).x[1];
+        assert node0.x[2] == path.get(0).x[2];
+        assert node0.y[0] == path.get(0).y[0];
+        assert node0.y[1] == path.get(0).y[1];
+        assert node0.y[2] == path.get(0).y[2];
 
-        assertEquals(node1.x[0], path.get(1).x[0], 0.0);
-        assertEquals(node1.x[1], path.get(1).x[1], 0.0);
-        assertEquals(node1.x[2], path.get(1).x[2], 0.0);
-        assertEquals(node1.y[0], path.get(1).y[0], 0.0);
-        assertEquals(node1.y[1], path.get(1).y[1], 0.0);
-        assertEquals(node1.y[2], path.get(1).y[2], 0.0);
+        assert node1.x[0] == path.get(1).x[0];
+        assert node1.x[1] == path.get(1).x[1];
+        assert node1.x[2] == path.get(1).x[2];
+        assert node1.y[0] == path.get(1).y[0];
+        assert node1.y[1] == path.get(1).y[1];
+        assert node1.y[2] == path.get(1).y[2];
     }
 
     @Test
@@ -129,10 +130,9 @@ public class BezierFigureTest {
         path.add(node1);
 
         BezierPath testBezierPath = bezierFigure.getCappedPath();
-
+        bezierFigure.path = path;
         assertEquals(testBezierPath.getBounds2D(), this.getCappedPath(bezierFigure, path).getBounds2D());
         assertEquals(testBezierPath.get(0).x[0], this.getCappedPath(bezierFigure, path).get(0).x[0], 0.0);
-        assert true;
     }
 
     @Test
@@ -145,14 +145,10 @@ public class BezierFigureTest {
         node0.x[0] = 3.4;
         node0.y[0] = 3.2;
 
-        node1.x[0] = 6.3;
-        node1.y[0] = 3.2;
-
         path.add(node0);
         path.add(node1);
 
         assertTrue(bezierFigure.contains(new Point2D.Double(3.4, 3.2)));
         assertFalse(bezierFigure.contains(new Point2D.Double(5.4, 5.2)));
-        assert true;
     }
 }

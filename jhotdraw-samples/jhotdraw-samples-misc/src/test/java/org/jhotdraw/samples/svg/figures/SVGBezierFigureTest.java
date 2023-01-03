@@ -43,7 +43,7 @@ public class SVGBezierFigureTest {
     }
 
     @Test
-    public void testCreateHandles(){
+    public void testCreateHandlesDetail1(){
         BezierPath path = new BezierPath();
         SVGPathFigure svgPathFigure = new SVGPathFigure();
         SVGBezierFigure svgBezierFigure = new SVGBezierFigure();
@@ -55,13 +55,16 @@ public class SVGBezierFigureTest {
         } else {
             assert false;
         }
+    }
 
-        path = new BezierPath();
-        svgPathFigure = new SVGPathFigure();
-        svgBezierFigure = new SVGBezierFigure();
-        detail = 2;
-        handles = (LinkedList<Handle>) svgBezierFigure.createHandles(svgPathFigure, detail);
-        handlesOld = (LinkedList<Handle>) orginalMethod(svgPathFigure, detail, path, svgBezierFigure);
+    @Test
+    public void testCreateHandleDetail2(){
+        BezierPath path = new BezierPath();
+        SVGPathFigure svgPathFigure = new SVGPathFigure();
+        SVGBezierFigure svgBezierFigure = new SVGBezierFigure();
+        int detail = 2;
+        LinkedList<Handle> handles = (LinkedList<Handle>) svgBezierFigure.createHandles(svgPathFigure, detail);
+        LinkedList<Handle> handlesOld = (LinkedList<Handle>) orginalMethod(svgPathFigure, detail, path, svgBezierFigure);
         if (handles.size() == handlesOld.size()) {
             assert true;
         } else {
