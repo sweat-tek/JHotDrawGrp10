@@ -45,6 +45,12 @@
 			<version>4.13.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.tngtech.jgiven</groupId>
+			<artifactId>jgiven-junit</artifactId>
+			<version>1.2.4</version>
+			<scope>test</scope>
+		</dependency>
     </dependencies>
 	<build>
 		<plugins>
@@ -53,9 +59,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.2</version>
 				<configuration>
-					<argLine>
-						-javaagent:/Users/caspe/.m2/repository/org/aspectj/aspectjweaver/1.9.9/aspectjweaver-1.9.9.jar --add-opens java.base/java.lang=ALL-UNNAMED
-					</argLine>
+<!--					<argLine>
+						-javaagent:/Users/bbckr/.m2/repository/org/aspectj/aspectjweaver/1.9.9/aspectjweaver-1.9.9.jar &#45;&#45;add-opens java.base/java.lang=ALL-UNNAMED
+					</argLine>-->
 					<useSystemClassLoader>true</useSystemClassLoader>
 					<forkMode>always</forkMode>
 				</configuration>

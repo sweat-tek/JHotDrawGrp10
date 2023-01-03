@@ -9,6 +9,8 @@ package org.jhotdraw.draw.gui;
 
 import javax.swing.*;
 import org.jhotdraw.api.gui.AttributeEditor;
+import org.jhotdraw.gui.ScaleFactor;
+
 import static org.jhotdraw.api.gui.AttributeEditor.ATTRIBUTE_VALUE_PROPERTY;
 import static org.jhotdraw.api.gui.AttributeEditor.MULTIPLE_VALUES_PROPERTY;
 
@@ -23,13 +25,13 @@ public class JAttributeSlider extends JSlider implements AttributeEditor<Double>
     private static final long serialVersionUID = 1L;
     private boolean isMultipleValues;
     private Double attributeValue;
-    private double scaleFactor = 1d;
-
+    ScaleFactor scaleFactor = new ScaleFactor(1d);
     /**
      * Creates new instance.
      */
-    public JAttributeSlider() {
+    public JAttributeSlider(ScaleFactor scaleFactor) {
         this(JSlider.VERTICAL, 0, 100, 50);
+
     }
 
     public JAttributeSlider(int orientation, int min, int max, int value) {
@@ -44,7 +46,7 @@ public class JAttributeSlider extends JSlider implements AttributeEditor<Double>
     @Override
     public void setAttributeValue(Double newValue) {
         attributeValue = newValue;
-        setValue(attributeValue == null ? 0 : (int) (attributeValue * scaleFactor));
+        setValue(attributeValue == null ? 0 : (int) (attributeValue * scaleFactor.getScaleFactor()));
     }
 
     @Override
@@ -52,13 +54,6 @@ public class JAttributeSlider extends JSlider implements AttributeEditor<Double>
         return attributeValue;
     }
 
-    public void setScaleFactor(double newValue) {
-        scaleFactor = newValue;
-    }
-
-    public double getScaleFactor() {
-        return scaleFactor;
-    }
 
     @Override
     public void setMultipleValues(boolean newValue) {
@@ -76,7 +71,7 @@ public class JAttributeSlider extends JSlider implements AttributeEditor<Double>
     protected void fireStateChanged() {
         super.fireStateChanged();
         Double oldValue = attributeValue;
-        attributeValue = getValue() / scaleFactor;
+        attributeValue = getValue() / scaleFactor.getScaleFactor();
         firePropertyChange(ATTRIBUTE_VALUE_PROPERTY, oldValue, attributeValue);
     }
 
@@ -89,6 +84,10 @@ public class JAttributeSlider extends JSlider implements AttributeEditor<Double>
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
     }// </editor-fold>//GEN-END:initComponents
+
+    public void setScaleFactor(double newValue) {
+        scaleFactor.setScaleFactor(newValue);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

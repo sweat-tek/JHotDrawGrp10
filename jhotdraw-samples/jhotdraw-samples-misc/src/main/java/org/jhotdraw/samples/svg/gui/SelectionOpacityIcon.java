@@ -28,6 +28,8 @@ public class SelectionOpacityIcon extends javax.swing.ImageIcon {
     private AttributeKey<Color> strokeColorKey;
     private Shape fillShape;
     private Shape strokeShape;
+    private Double opacity;
+
 
     /**
      * Creates a new instance.
@@ -76,21 +78,20 @@ public class SelectionOpacityIcon extends javax.swing.ImageIcon {
     public void paintIcon(java.awt.Component c, java.awt.Graphics gr, int x, int y) {
         Graphics2D g = (Graphics2D) gr;
         super.paintIcon(c, g, x, y);
-        Double opacity;
         Color fillColor;
         Color strokeColor;
         DrawingView view = (editor == null) ? null : editor.getActiveView();
         if (view != null && view.getSelectedFigures().size() == 1) {
             Figure f = view.getSelectedFigures().iterator().next();
-            opacity = f.get(opacityKey);
+            setFigureOpacity(f);
             fillColor = (fillColorKey == null) ? null : f.get(fillColorKey);
             strokeColor = (strokeColorKey == null) ? null : f.get(strokeColorKey);
         } else if (editor != null) {
-            opacity = opacityKey.get(editor.getDefaultAttributes());
+            setDefaultOpacityAttributes();
             fillColor = (fillColorKey == null) ? null : fillColorKey.get(editor.getDefaultAttributes());
             strokeColor = (strokeColorKey == null) ? null : strokeColorKey.get(editor.getDefaultAttributes());
         } else {
-            opacity = opacityKey.getDefaultValue();
+            setDefaultOpacity();
             fillColor = (fillColorKey == null) ? null : fillColorKey.getDefaultValue();
             strokeColor = (strokeColorKey == null) ? null : strokeColorKey.getDefaultValue();
         }
@@ -116,5 +117,20 @@ public class SelectionOpacityIcon extends javax.swing.ImageIcon {
                 g.translate(-x, -y);
             }
         }
+    }
+
+    public Double setFigureOpacity(Figure f){
+        opacity = f.get(opacityKey);
+        return opacity;
+    }
+
+    public Double setDefaultOpacityAttributes() {
+        opacity = opacityKey.get(editor.getDefaultAttributes());
+        return opacity;
+    }
+
+    public Double setDefaultOpacity(){
+        opacity = opacityKey.getDefaultValue();
+        return opacity;
     }
 }
